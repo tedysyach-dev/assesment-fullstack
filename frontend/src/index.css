@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-poppins: "Poppins", sans-serif;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+
+  --text-xss: 0.625rem;           /* 10px */
+  --text-xss--line-height: 13px;
+  --text-xss--letter-spacing: 0;
+
+  --text-xs: 0.75rem;           /* 12px */
+  --text-xs--line-height: 13px;
+  --text-xs--letter-spacing: 0;
+
+  --text-sm: 0.875rem;           /* 14px */
+  --text-sm--line-height: 13px;
+  --text-sm--letter-spacing: 0;
+
+  --text-base: 1rem;          /* 16px */
+  --text-base--line-height: 1.5;
+  --text-sm--letter-spacing: 0;
+
+  --text-bm: 1.5rem;          /* 24px */
+  --text-base--line-height: 2.25;
+  --text-sm--letter-spacing: 0;
+
+  --text-medium: 1.125rem;    /* 18px */
+  --text-medium--line-height: 1.555;
+  --text-sm--letter-spacing: 0;
+
+   --text-ml: 2.25rem;    /* 36px */
+  --text-large--line-height: 4;
+  --text-sm--letter-spacing: 0;
+
+  --text-large: 3rem;    /* 46px */
+  --text-large--line-height: 1.625;
+  --text-sm--letter-spacing: 0;
+
+  
+  --color-primary-main: #3559E0;
+  --color-primary-surface: #D7DEF9;
+  --color-primary-pressed: #1A2C70;
+  --color-primary-border: #BCC8F5;
+
+  --color-danger-main: #CB3A31;
+  --color-danger-surface: #FFF4F2;
+  --color-success-main: #43936C;
+  --color-success-surface:#C6FBDC;
+  --color-warning-main: #CD7B2E;
+  --color-warning-surface: #FFF9F2;
+  --color-info-main:#3267E3;
+  --color-info-surface: #F0F3FFF3;
+  --color-process-main: #BF7EEF;
+  --color-process-surface: #F3E7FC;
+
+  --color-semantic-green: #4CAF50;
+  --color-semantic-red: #E52A34;
+  --color-semantic-darkgreen: #353F3D;
+
+
+  --color-neutral-100: #252525;
+  --color-neutral-80: #727272;
+  --color-neutral-70: #A9A9A9;
+  --color-neutral-60: #A9A9A9;
+  --color-neutral-50: #C9C9C9;
+  --color-neutral-30: #EDEDED;
+  --color-neutral-20:#F5F5F5;
+  --color-neutral-white: #FFFFFF;
+
+}
+
+@layer base {
+  body {
+    font-family: var(--font-poppins);
+  }
+}
