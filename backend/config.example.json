@@ -1,0 +1,23 @@
+{
+    "web": {
+        "port": "1903"
+    },
+    "secret_key" : "tedyysyyach@gmail.com",
+    "database": {
+        "username": "backdev",
+        "password": "pass",
+        "host": "localhost",
+        "port": "5432",
+        "name": "suksescorp",
+        "pool": {
+            "idle": 5,
+            "max": 10,
+            "lifetime": 300
+        }
+    },
+    "mock" : {
+        "url" : "url",
+        "partnerId" : "partnerId",
+        "partnerKey" : "partnerKey"
+    }
+}
