@@ -59,6 +59,7 @@ func (s *AuthService) RegisterUser(ctx context.Context, req *model.RegisterReque
 	user.ID = uuid.New().String()
 	user.Email = req.Email
 	user.PasswordHash = hashedPassword
+	user.Role = req.Role
 
 	if err := s.UsersRepository.Create(ctx, &user); err != nil {
 		return errors.NewInternalError(err)
@@ -84,7 +85,8 @@ func (s *AuthService) Login(ctx context.Context, req *model.LoginRequest) (*mode
 	}
 
 	accessToken, err := s.TokenUtil.CreateAccessToken(ctx, &model.Auth{
-		UID: user.ID,
+		UID:  user.ID,
+		ROLE: user.Role,
 	})
 	if err != nil {
 		s.Log.WithError(err).Error("failed to generate access token")
@@ -93,5 +95,6 @@ func (s *AuthService) Login(ctx context.Context, req *model.LoginRequest) (*mode
 
 	return &model.LoginResponse{
 		AccessToken: accessToken,
+		Role:        user.Role,
 	}, nil
 }

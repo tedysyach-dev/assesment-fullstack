@@ -13,7 +13,7 @@ export const useAuth = () => {
         throw new Error(data.message ?? "Login failed");
       }
 
-      setAuth(data.resource.accessToken);
+      setAuth(data.resource.accessToken, data.resource.role);
     } catch (error: any) {
       const message =
         error?.response?.data?.message ?? error?.message ?? "Login failed";

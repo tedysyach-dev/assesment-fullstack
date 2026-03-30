@@ -23,8 +23,9 @@ func (t *TokenUtil) CreateAccessToken(ctx context.Context, auth *model.Auth) (st
 	exp := time.Now().Add(time.Minute * 30).Unix()
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"uid": auth.UID,
-		"exp": exp, // fix: was "expire"
+		"uid":  auth.UID,
+		"role": auth.ROLE,
+		"exp":  exp, // fix: was "expire"
 	})
 
 	jwtToken, err := token.SignedString([]byte(t.SecretKey))
@@ -56,13 +57,19 @@ func (t *TokenUtil) ParseToken(jwtToken string) (*model.TokenClaims, error) {
 		return nil, fmt.Errorf("invalid uid claim")
 	}
 
+	role, ok := claims["role"].(string)
+	if !ok {
+		return nil, fmt.Errorf("invalid role claim")
+	}
+
 	exp, ok := claims["exp"].(float64)
 	if !ok {
 		return nil, fmt.Errorf("invalid exp claim")
 	}
 
 	return &model.TokenClaims{
-		UID: uid,
-		Exp: int64(exp),
+		UID:  uid,
+		ROLE: role,
+		Exp:  int64(exp),
 	}, nil
 }

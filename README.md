@@ -18,7 +18,14 @@ Backend
 cd backend/ -> make run-dev
 
 Register first using :
-curl -X POST http://localhost:1903/auth/register -H "Content-Type: application/json" -d '{"email":"tedyysyyach@gmail.com","password":"1234567890"}'
+you can choose role between :
+ADMIN,STAFF,PICKER,PACKER
+ADMIN : See list order, detail Order and ship order
+STAFF : See list Order, detail Order
+PICKER : See list Order, detail Order and Pick Oder
+PACKER : See list Order, detail Order and Pack order
+
+curl -X POST http://localhost:1903/auth/register -H "Content-Type: application/json" -d '{"email":"tedyysyyach@gmail.com","password":"1234567890","role":"ADMIN"}'
 
 Migration
 cd backend/ -> make migrate-init -> make migarte-up

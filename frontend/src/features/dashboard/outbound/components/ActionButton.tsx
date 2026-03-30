@@ -17,11 +17,13 @@ import {
 } from "@tanstack/react-table";
 import { useMemo } from "react";
 import type { OrderItem } from "../types";
+import { useAuthStore } from "@/features/auth/store/authStore";
 
 interface ActionOrderButtonProps {
   orderSn: string;
 }
 const ActionOrderButton = ({ orderSn }: ActionOrderButtonProps) => {
+  const { role } = useAuthStore();
   const {
     open,
     orderSn: activeOrderSn,
@@ -42,12 +44,14 @@ const ActionOrderButton = ({ orderSn }: ActionOrderButtonProps) => {
       label: "Pickup",
       action: () => pickOrder(orderSn),
       loading: isPicking,
+      role: "PICKER",
     },
 
     PICKING: {
       label: "Pack",
       action: () => packOrder(orderSn),
       loading: isPacking,
+      role: "PACKER",
     },
 
     PACKED: {
@@ -58,12 +62,15 @@ const ActionOrderButton = ({ orderSn }: ActionOrderButtonProps) => {
           channelId: "JNE",
         }),
       loading: isShipping,
+      role: "ADMIN",
     },
   } as const;
 
   const currentAction = data?.wms_status
     ? actionConfig[data.wms_status as keyof typeof actionConfig]
-    : null;
+    : undefined;
+
+  const isAllowed = currentAction?.role === role;
 
   const itemColumns = useMemo<ColumnDef<OrderItem>[]>(
     () => [
@@ -263,11 +270,13 @@ const ActionOrderButton = ({ orderSn }: ActionOrderButtonProps) => {
                     size="default"
                     className="w-full"
                     onClick={currentAction.action}
-                    disabled={currentAction.loading}
+                    disabled={!isAllowed || currentAction.loading}
                   >
-                    {currentAction.loading
-                      ? "Processing..."
-                      : currentAction.label}
+                    {!isAllowed
+                      ? "No Access"
+                      : currentAction.loading
+                        ? "Processing..."
+                        : currentAction.label}
                   </Button>
                 )}
               </>

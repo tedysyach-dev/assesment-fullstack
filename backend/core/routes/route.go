@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"wms/core/middlewares"
 	"wms/internal/controller"
 
 	"github.com/gofiber/fiber/v2"
@@ -17,7 +18,7 @@ var (
 type RouteConfig struct {
 	App             *fiber.App
 	Config          *viper.Viper
-	AuthMiddleware  fiber.Handler
+	AuthMiddleware  *middlewares.AuthMiddleware
 	OrderController *controller.OrderController
 	AuthController  *controller.AuthController
 }

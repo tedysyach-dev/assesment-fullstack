@@ -8,4 +8,5 @@ type Users struct {
 	ID           string `bun:"id,pk"`
 	Email        string `bun:"email,unique,notnull"`
 	PasswordHash string `bun:"password_hash,notnull"`
+	Role         string `bun:"role,notnull"`
 }

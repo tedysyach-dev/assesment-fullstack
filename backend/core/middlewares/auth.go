@@ -41,11 +41,31 @@ func (m *AuthMiddleware) Authenticate() fiber.Handler {
 
 		auth := &model.Auth{
 			UID:    claims.UID,
+			ROLE:   claims.ROLE,
 			Claims: claims,
 		}
 		ctx.Locals("auth", auth)
 
 		return ctx.Next()
+	}
+}
+
+func (m *AuthMiddleware) Authorize(roles ...string) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		auth := GetAuth(ctx)
+		if auth == nil {
+			return fiber.NewError(fiber.StatusUnauthorized, "Unauthorized")
+		}
+
+		userRole := strings.ToUpper(auth.ROLE)
+
+		for _, role := range roles {
+			if userRole == strings.ToUpper(role) {
+				return ctx.Next()
+			}
+		}
+
+		return fiber.NewError(fiber.StatusForbidden, "Forbidden: insufficient role")
 	}
 }
 
